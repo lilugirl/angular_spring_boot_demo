@@ -1,0 +1,54 @@
+<!-- ngForm 并不需要显示声明， 任何<form>标签默认都是ngForm-->
+<!-- 使用 # 把表单对象导出到 f 这个可引用变量中 -->
+<form novalidate  #f="ngForm">
+    <label>
+        <span>电子邮件地址</span>
+        <input type="text" name="email" placeholder="请输入您的email地址" [(ngModel)]="user.email">
+    </label>
+    <div>
+        <label>
+            <span>密码</span>
+            <input type="password" name="password" placeholder="请输入您的密码" [(ngModel)]="user.password">
+        </label>
+        <label>
+            <span>确认密码</span>
+            <input type="password" name="repeat" placeholder="请再次输入密码" [(ngModel)]="user.repeat">
+        </label>
+    </div>
+    <!-- 使用 ngModelGroup 来创建并绑定 FormGroup -->
+    <div ngModelGroup="address">
+        <label>
+            <span>省份</span>
+            <select name="province" [(ngModel)]="user.address.province">
+                <option value="">请选择省份</option>
+                <option value="北京">北京</option>
+                <option value="河北">河北</option>
+            </select>
+        </label>
+        <label>
+            <span>城市</span>
+            <select name="city"  [(ngModel)]="user.address.city">
+                <option value="">请选择城市</option>
+                <option value="北京">北京</option>
+                <option value="石家庄">石家庄</option>
+            </select>
+        </label>
+        <label>
+            <span>区县</span>
+            <select name="area" [(ngModel)]="user.address.area">
+                <option value="">请选择区县</option>
+                <option value="东城区">东城区</option>
+                <option value="西城区">西城区</option>
+            </select>
+        </label>
+        <label>
+            <span>地址</span>
+            <input type="text" name="addr" placeholder="请输入您的详细地址" [(ngModel)]="user.address.addr">
+        </label>
+    </div>
+    <button type="submit">注册</button>
+</form>
+<!-- 将表单的值以JSON形式输出 -->
+f.value {{f.value | json}}
+<hr>
+user {{user | json}}

@@ -3,17 +3,29 @@
 <form novalidate  #f="ngForm">
     <label>
         <span>电子邮件地址</span>
-        <input type="text" name="email" placeholder="请输入您的email地址" [(ngModel)]="user.email">
+        <input type="text" name="email" placeholder="请输入您的email地址" [(ngModel)]="user.email" #email="ngModel" required pattern="([a-zA-z0-9]+[_|-|.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|-|.]?)*[a-zA-Z0-9]+.[a-zA-z]{2,4}">
     </label>
+    <div *ngIf="email.errors?.required && email.touched" class="error">
+        email 是必填
+    </div>
+    <div *ngIf="email.errors?.pattern && email.touched" class="error">
+       email 格式不正确
+    </div>
     <div>
         <label>
             <span>密码</span>
-            <input type="password" name="password" placeholder="请输入您的密码" [(ngModel)]="user.password">
+            <input type="password" name="password" placeholder="请输入您的密码" [(ngModel)]="user.password" required minlength="8" #password="ngModel" validateEqual="repeat" reverse="true">
         </label>
         <label>
             <span>确认密码</span>
-            <input type="password" name="repeat" placeholder="请再次输入密码" [(ngModel)]="user.repeat">
+            <input type="password" name="repeat" placeholder="请再次输入密码" [(ngModel)]="user.repeat" required minlength="8" #repeat="ngModel" validateEqual="password" reverse="false">
         </label>
+        <div *ngIf="password.errors?.minlength && password.touched" class="error">
+            密码至少是8位
+        </div>
+        <div *ngIf="repeat.errors?.validateEqual && repeat.touched" class="error" >
+           确认密码不匹配
+        </div>
     </div>
     <!-- 使用 ngModelGroup 来创建并绑定 FormGroup -->
     <div ngModelGroup="address">
@@ -46,9 +58,15 @@
             <input type="text" name="addr" placeholder="请输入您的详细地址" [(ngModel)]="user.address.addr">
         </label>
     </div>
-    <button type="submit">注册</button>
+    <button type="submit" [disabled]="f.invalid">注册</button>
 </form>
 <!-- 将表单的值以JSON形式输出 -->
 f.value {{f.value | json}}
 <hr>
 user {{user | json}}
+<div>
+    <span>email 验证</span> {{f.controls.email?.errors | json}}
+</div>
+<div>
+    <span>password 验证</span> {{f.controls.password?.errors | json}}
+</div>

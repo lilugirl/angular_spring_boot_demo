@@ -1,6 +1,6 @@
 <!-- ngForm 并不需要显示声明， 任何<form>标签默认都是ngForm-->
 <!-- 使用 # 把表单对象导出到 f 这个可引用变量中 -->
-<form novalidate  #f="ngForm">
+<form novalidate  #f="ngForm" (ngSubmit)="onSubmit(f,$event)">
     <label>
         <span>电子邮件地址</span>
         <input type="text" name="email" placeholder="请输入您的email地址" [(ngModel)]="user.email" #email="ngModel" required pattern="([a-zA-z0-9]+[_|-|.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|-|.]?)*[a-zA-Z0-9]+.[a-zA-z]{2,4}">
@@ -64,9 +64,4 @@
 f.value {{f.value | json}}
 <hr>
 user {{user | json}}
-<div>
-    <span>email 验证</span> {{f.controls.email?.errors | json}}
-</div>
-<div>
-    <span>password 验证</span> {{f.controls.password?.errors | json}}
-</div>
+

@@ -28,5 +28,12 @@ export class TemplateDrivenComponent implements OnInit {
 
   }
 
+  onSubmit({value,valid}:any,event:Event){
+     if(valid){
+       console.log('value',value)
+     }
+      event.preventDefault()
+  }
+
 
 }

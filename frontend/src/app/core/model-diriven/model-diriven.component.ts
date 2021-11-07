@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder,FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 
 
 @Component({
@@ -9,28 +9,43 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class ModelDirivenComponent implements OnInit {
 
-  user:FormGroup=new FormGroup({});
+  user=this.fb.group({
+    email:['',[Validators.required,Validators.email]],
+    password:['',[Validators.required]],
+    repeat:['',[Validators.required]],
+    address:this.fb.group({
+      province:[],
+      city:[],
+      area:[],
+      addr:[]
+    })
+  },{validator:this.validateEqual('password','repeat')})
 
-  constructor() { }
+  constructor(private fb:FormBuilder) { }
 
   ngOnInit(): void {
-    // 初始化表单
-    this.user=new FormGroup({
-      email:new FormControl('',[Validators.required,Validators.pattern(/()/)]),
-      password:new FormControl('',[Validators.required]),
-      repeat:new FormControl('',[Validators.required]),
-      address:new FormGroup({
-        province:new FormControl(''),
-        city:new FormControl(''),
-        area:new FormControl(''),
-        addr:new FormControl()
-      })
-    })
+   
   }
 
   onSubmit({value,valid}:any){
         if(!valid) return;
         console.log(JSON.stringify(value))
+  }
+
+
+  validateEqual(passwordKey:string,confirmPasswordKey:string):ValidatorFn {
+    // @ts-ignore
+    return (group:FormGroup):{[key:string]:any} | null=>{
+      const password=group.controls[passwordKey];
+      const confirmPassword=group.controls[confirmPasswordKey];
+      
+      if(password.value!==confirmPassword.value){
+                return {
+                  validateEqual:true
+                }
+      }
+      return null
+    }
   }
 
   

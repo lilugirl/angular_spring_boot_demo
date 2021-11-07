@@ -33,36 +33,48 @@
         </div>
     </div>
    
-    <div formGroupName="address">
-        <label>
-            <span>省份</span>
-            <select name="province" formControlName="province">
-                <option value="">请选择省份</option>
-                <option value="北京">北京</option>
-                <option value="河北">河北</option>
-            </select>
-        </label>
-        <label>
-            <span>城市</span>
-            <select name="city" formControlName="city">
-                <option value="">请选择城市</option>
-                <option value="北京">北京</option>
-                <option value="石家庄">石家庄</option>
-            </select>
-        </label>
-        <label>
-            <span>区县</span>
-            <select name="area" formControlName="area">
-                <option value="">请选择区县</option>
-                <option value="东城区">东城区</option>
-                <option value="西城区">西城区</option>
-            </select>
-        </label>
-        <label>
-            <span>地址</span>
-            <input type="text" name="addr" placeholder="请输入您的详细地址" formControlName="addr">
-        </label>
+    <div formArrayName="addrs">
+        <button (click)="addAddr()">Add</button>
+        
+        
+        <div *ngFor="let item of addrsControls(); let i=index;">
+            <div [formGroupName]="i">
+                <label>
+                    <span>省份</span>
+                    <select name="province" formControlName="province">
+                        <option value="">请选择省份</option>
+                        <option value="北京">北京</option>
+                        <option value="河北">河北</option>
+                    </select>
+                </label>
+                <label>
+                    <span>城市</span>
+                    <select name="city" formControlName="city">
+                        <option value="">请选择城市</option>
+                        <option value="北京">北京</option>
+                        <option value="石家庄">石家庄</option>
+                    </select>
+                </label>
+                <label>
+                    <span>区县</span>
+                    <select name="area" formControlName="area">
+                        <option value="">请选择区县</option>
+                        <option value="东城区">东城区</option>
+                        <option value="西城区">西城区</option>
+                    </select>
+                </label>
+                <label>
+                    <span>地址</span>
+                    <input type="text" name="addr" placeholder="请输入您的详细地址" formControlName="addr">
+                </label>
+            </div>
+
+        </div>
+
+      
     </div>
+
+    {{result}}
     <button type="submit" [disabled]="user.invalid">注册</button>
 </form>
 

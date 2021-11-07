@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+
 const MODULES=[
-  CommonModule
+  CommonModule,
 ]
 
 const DECLARATIONS:any[] =[];

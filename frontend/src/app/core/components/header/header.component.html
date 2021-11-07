@@ -1,0 +1,9 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button (click)="toggleMenu()" *ngIf="!hideForGuest">
+    <mat-icon svgIcon="projects"></mat-icon>
+  </button>
+  <span>{{title}}</span>
+  <span class="fill-remaining-space"></span>
+  <mat-slide-toggle (change)="toggleDarkMode($event.checked)" *ngIf="!hideForGuest">黑夜模式</mat-slide-toggle>
+  <button *ngIf="!hideForGuest" mat-button (click)="handleLogout()">退出</button>
+</mat-toolbar>

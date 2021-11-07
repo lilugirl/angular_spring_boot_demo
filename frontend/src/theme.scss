@@ -1,0 +1,66 @@
+@import "~@angular/material/theming";
+
+// mat-core 提供了Angular Material的公共风格
+// 这个mat-core只能在这整个应用中包含一次
+@include mat-core();
+
+// 使用 mat-palette  添加基础色和强调色调色板
+// 对于每种调色板，你可以手动置顶三种饱和度，分别对应默认，亮和暗
+// $mat-indigo 和 $mat-pink是Material 定义的基本色中的两种，具体都有哪些颜色可以
+// 查看node_modules/@angular/material/_theming.scss
+// 如果还不满足你的需求，则可以自己定义颜色变量
+
+$mat-custom: (
+  50: #fce4ec,
+  100: #f8bbd0,
+  200: #f48fb1,
+  300: #f06292,
+  400: #ec407a,
+  500: #e91e63,
+  600: #d81b60,
+  700: #c2185b,
+  800: #ad1457,
+  900: #880e4f,
+  A100: #ff80ab,
+  A200: #ff4081,
+  A400: #f50057,
+  A700: #c51162,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $dark-primary-text,
+    400: $dark-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $light-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text,
+  ),
+);
+
+$app-primary: mat-palette($mat-indigo);
+$app-accent: mat-palette($mat-pink, A200, A100, A400);
+
+//错误调色板 默认为红色
+$app-warn: mat-palette($mat-red);
+
+// 通过mat-light-them将上面定制化的调色板组合成一个主题，注意主题分为明暗两种
+// mat-light-theme 明
+// mat-dark-them 暗
+$app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
+$dark-theme: mat-dark-theme($app-primary, $app-accent, $app-warn);
+// 接下来这句代码就是把主题风格包含，以便组件可以使用
+@include angular-material-theme($app-theme);
+
+.app-dark-theme {
+  @include angular-material-theme($dark-theme);
+}
+
+// .app-other-them {
+//   @include angular-material-theme($other-theme);
+// }

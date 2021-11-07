@@ -1,2 +1,15 @@
 <!-- <app-template-driven></app-template-driven> -->
-<app-model-diriven></app-model-diriven>
+<!-- <app-model-diriven></app-model-diriven> -->
+<mat-sidenav-container fullscreen>
+  <mat-sidenav #sidenav mode="over">
+         <app-sidebar [menuGroups]="sidebarMenu"></app-sidebar>
+  </mat-sidenav>
+  <div class="site" fxLayout="column">
+    <app-header (toggleMenuEvent)="sidenav.toggle()" (toggleDarkModeEvent)="toggleDarkMode($event)"></app-header>
+       <main fxFlex="1" fxLayout="column" fxLayoutAlign="center stretch">
+          <router-outlet></router-outlet>
+       </main>
+       <app-footer></app-footer>
+  </div>
+</mat-sidenav-container>
+

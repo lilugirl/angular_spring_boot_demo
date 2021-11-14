@@ -1,42 +1,32 @@
-import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MyMaterialModule } from '../material/material.module';
+import { AuthModule } from '../auth/auth.module';
+import { SharedModule } from '../shared/shared.module';
+import { loadIconResources } from '../utils/icon';
 import { AppRoutingModule } from './app-routing.module';
-
-export const loadIconResources=(ir:MatIconRegistry,ds:DomSanitizer)=>{
-  const imgDir='assets/img';
-  const avatarDir=`${imgDir}/avatar`;
-  const sidebarDir=`${imgDir}/sidebar`;
-  const iconDir=`${imgDir}/icons`;
-  const dayDir=`${imgDir}/days`;
-  ir
-   .addSvgIconSetInNamespace('avatars',ds.bypassSecurityTrustResourceUrl(`${avatarDir}/avatars.svg`))
-   .addSvgIcon('unassigned',ds.bypassSecurityTrustResourceUrl(`${avatarDir}/unassigned.svg`))
-   .addSvgIcon('project',ds.bypassSecurityTrustResourceUrl(`${sidebarDir}/project.svg`))
-   .addSvgIcon('projects',ds.bypassSecurityTrustResourceUrl(`${sidebarDir}/projects.svg`))
-   .addSvgIcon('month',ds.bypassSecurityTrustResourceUrl(`${dayDir}/month.svg`))
-   .addSvgIcon('week',ds.bypassSecurityTrustResourceUrl(`${dayDir}/week.svg`))
-   .addSvgIcon('day',ds.bypassSecurityTrustResourceUrl(`${dayDir}/day.svg`))
-   .addSvgIcon('move',ds.bypassSecurityTrustResourceUrl(`${iconDir}/move.svg`))
-   .registerFontClassAlias('fontawesome','fa');
-
-}
+import { FooterComponent } from './components/footer/footer.component';
+import { HeaderComponent } from './components/header/header.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { AppComponent } from './containers/app/app.component';
 
 @NgModule({
-  imports:[
-    CommonModule,
-    MyMaterialModule,
-    HttpClientModule, // 如果有mat-icon 或者 mat-icon-button 是必须要导入的
-    BrowserAnimationsModule, // material的动画必须导入这个模块
-    AppRoutingModule
+  declarations:[
+    AppComponent,
+    PageNotFoundComponent,
+    HeaderComponent,
+    FooterComponent,
+    SidebarComponent
   ],
-  exports:[
-    MyMaterialModule,
-    AppRoutingModule
+  imports:[
+    SharedModule,
+    HttpClientModule, // 如果有mat-icon 或者 mat-icon-button 是必须要导入的
+    AuthModule,
+    AppRoutingModule,
+    BrowserAnimationsModule // material的动画必须导入这个模块
   ]
 })
 

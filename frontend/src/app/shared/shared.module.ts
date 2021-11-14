@@ -1,26 +1,29 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ImagePicker } from './components/image-picker/image-picker.component';
+import { MyMaterialModule } from '../material/material.module';
 
 
 const MODULES=[
   CommonModule,
+  ReactiveFormsModule,
+  FormsModule,
+  MyMaterialModule
 ]
 
-const DECLARATIONS:any[] =[];
-const EXPORT_COMPONENTS:any[] =[];
-const ENTRYCOMPONENTS:any[] = [];
+const COMPONENTS =[
+  ImagePicker
+];
+
 
 
 @NgModule({
-  imports: MODULES,
+  declarations: COMPONENTS,
+  imports: [...MODULES],
   exports: [
     ...MODULES,
-    ...EXPORT_COMPONENTS
-  ],
-  declarations: DECLARATIONS,
-  entryComponents:[
-    ENTRYCOMPONENTS
+    ...COMPONENTS
   ]
-
 })
 export class SharedModule { }

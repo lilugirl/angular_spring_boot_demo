@@ -6,6 +6,13 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
+    "docker:build":"docker build -t ng-app . -f ./docker/nginx/Dockerfile",
+    "docker:run":"docker run --rm -d -p 443:443 -p 80:80 --name ng-app-container ng-app",
+    "docker:first":"docker-compose up --build",
+    "docker":"docker-compose up -d",
+    "docker:stop":"docker-compose down",
+    "docker:restart":"docker-compose restart nginx",
+    "docker:log":"docker-compose logs nginx",
     "test": "ng test"
   },
   "private": true,
